@@ -144,11 +144,21 @@ var chainusers = [
 ];
 
 
-var youngest = _.chain(chainusers).sortBy('age').values().first().value();
- console.log(youngest);
- console.log(youngest.user);
- var arrayChain = [['trinh',4],['tai',5]];
-console.log(_.chain(arrayChain).push(['user',4]).value());
+var youngest = _(chainusers).chain().sortBy('age').values().first();
+console.log(youngest);
+console.log('youngest '+youngest.value().user);
+var chainusers1 = [
+  { 'user': 'barney',  'age': 36 },
+  { 'user': 'fred',    'age': 40 },
+  { 'user': 'pebbles', 'age': 1 }
+];
+
+var youngest1 = youngest.plant(chainusers1);
+console.log(youngest1);
+console.log('youngest1 '+youngest1.first().value().user);
+
+var arrayChain = [['trinh',4],['tai',5]];
+console.log(_.chain(arrayChain).pop().push(['user',4]).value());
 
 var string = 'tran van    trinh';
 
@@ -164,4 +174,27 @@ console.log(test3);
 
 console.log(_.chain(test3).drop(1).value());
 
+var a = _([1,2,3]).tap(function(array) {
 
+	array.pop();
+}).reverse().value();
+
+console.log(a);
+
+console.log(_.chain([1,2,3]).push(4).reverse().value());
+
+var prototype = _(chainusers).chain().first().pick('user').value();
+console.log(prototype.user);
+
+// chain commit 
+
+var arrayPlant = [1,2];
+var wrrapperPlant = _(arrayPlant).map(function(value) {
+
+	return Math.pow(value,2);
+});
+
+var otherPlant = [3,4];
+
+var otherPlantResult = wrrapperPlant.plant(otherPlant);
+console.log(otherPlantResult.value());
