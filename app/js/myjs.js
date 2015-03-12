@@ -12,7 +12,7 @@ console.log(_.drop(['3',1,2,3],2));
 var users = [
   { 'user': 'barney',  'active': true },
   { 'user': 'pebbles', 'active1': false },
-  { 'user': 'fred',    'active': false },
+  { 'user': 'fred',    'active': true },
   { 'user': 'pebbles', 'active': false },
   { 'user': 'pebbles1', 'active1': false}
 ];
@@ -22,6 +22,7 @@ console.log(_.pluck(_.dropRightWhile(users, { 'user': 'pebbles', 'active': false
 console.log(_.pluck(_.dropRightWhile(users, 'active', false), 'user'));
 
 console.log(_.dropRightWhile(users, 'active1', false), 'user');
+console.log("pro: ");console.log(_.pluck(_.dropRightWhile(users,'active'),'user'));
 console.log(_.first(users));
 var fill = [1,2,3,4,5];
 console.log(_.fill(fill,4,1,3));
@@ -59,5 +60,108 @@ console.log(array);
 
 console.log(evens);
 // → [10, 20]
+
+
+var users1 = [
+ { 'user': 'pebbles0', 'active': true },
+  { 'user': 'barney',  'active': false },
+  { 'user': 'fred',    'active': false },
+  { 'user': 'pebbles', 'active': false }
+];
+
+console.log(_.findIndex(users1,'active'));
+console.log('test:');
+console.log(_.pluck(_.dropWhile(users1,'active'),'user'));
+console.log(users1);
+var testRemove = [1,2,3,4,5];
+
+var testRemoveRemain = _.remove(testRemove,function(n){
+	return n % 2;
+});
+
+console.log(testRemoveRemain);
+console.log(testRemove);
+var testRemoveUser1 = _.remove(users1,{'user': 'barney',  'active': false});
+console.log(testRemoveUser1);
+console.log(_.pluck(users1,'user'));
+
+console.log("sorted index");
+console.log(_.sortedIndex([1,3,1],2));
+
+var users2 = [
+  { 'user': 'barney',  'active': true },
+  { 'user': 'fred',    'active': true},
+  { 'user': 'pebbles', 'active': true }
+];
+
+console.log("Test take while : ");
+var testTake = _.takeWhile(users2,'active');
+console.log(_.pluck(testTake,'user'));
+
+console.log('test unig : ');
+
+console.log(_.uniq([1, 2.5, 3.5,3,5, 1.5, 2,3,4,4], function(n) {
+  return this.floor(n);
+}, Math));
+
+console.log(Math.floor(2.5));
+
+var zipped = _.zip(['fred', 'barney','trinh'], [30, 40,5], [true, false,'sdg'],[true,true, true]);
+console.log(zipped);
+zipped = _.zip(zipped);
+// → [['fred', 30, true], ['barney', 40, false]]
+console.log(zipped);
+//sconsole.log(_.unzip(zipped));
+// → [['fred', 'barney'], [30, 40], [true, false]]
+
+console.log(_.uniq([1, 3.4, 2.5,2.2, 1.5, 2], function(n) {
+  return this.floor(n);
+}, Math));
+
+console.log(_.zipObject([['trinh','4'],['tai','4']]));
+
+console.log(_.zipObject(['fred', 'barney'], [30, 40]));
+
+
+var wrapped = _([1,2,3]);
+
+wrapped.reduce(function(sum,n) {
+	return sum + n;
+});
+console.log(wrapped);
+
+var square = wrapped.map(function(n) {
+	return n*n;
+});
+
+console.log(square);
+console.log(_.isArray(square));
+console.log(_.isArray(square.value()));
+var chainusers = [
+  { 'user': 'barney',  'age': 36 },
+  { 'user': 'fred',    'age': 40 },
+  { 'user': 'pebbles', 'age': 1 }
+];
+
+
+var youngest = _.chain(chainusers).sortBy('age').values().first().value();
+ console.log(youngest);
+ console.log(youngest.user);
+ var arrayChain = [['trinh',4],['tai',5]];
+console.log(_.chain(arrayChain).push(['user',4]).value());
+
+var string = 'tran van    trinh';
+
+var result = _.chain(string).split(' ').without('tran').value();
+console.log(result);
+
+var string1 = _.chain(string).replace('trinh','tran').add('a').value();
+var string2 = _.chain(string).trim().add('a').value();
+console.log(string1);
+console.log(string2);
+var test3 = [3,4,5,6];
+console.log(test3);
+
+console.log(_.chain(test3).drop(1).value());
 
 
