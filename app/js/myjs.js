@@ -63,13 +63,14 @@ console.log(evens);
 
 
 var users1 = [
- { 'user': 'pebbles0', 'active': true },
-  { 'user': 'barney',  'active': false },
+ { 'user': 'pebbles0', 'active': false },
+  { 'user': 'barney',  'active': true },
   { 'user': 'fred',    'active': false },
   { 'user': 'pebbles', 'active': false }
 ];
 
-console.log(_.findIndex(users1,'active'));
+console.log('find key : ');
+console.log(_.findKey(users1,'active'));
 console.log('test:');
 console.log(_.pluck(_.dropWhile(users1,'active'),'user'));
 console.log(users1);
@@ -198,3 +199,246 @@ var otherPlant = [3,4];
 
 var otherPlantResult = wrrapperPlant.plant(otherPlant);
 console.log(otherPlantResult.value());
+
+var keyData = [
+  { 'dir': 'left', 'code': 97 },
+  { 'dir': 'right', 'code': 100 },
+  {	'dir': 'left', 'code': 88}
+];
+
+console.log(_.indexBy(keyData,'dir'));
+
+console.log(_.partition([2, 1, 3], function(n) {
+  return n % 2;
+}));
+
+function timesThree(n) {
+	return n * 3;
+}
+
+var a = _.map([1,2], timesThree);
+console.log(a);
+
+var usersPartition = [
+  { 'user': 'barney',  'age': 36, 'active': false },
+  { 'user': 'fred',    'age': 40, 'active': true },
+  { 'user': 'pebbles', 'age': 1,  'active': false }
+];
+
+var mapper = function(array) {
+
+	return _.pluck(array,'user');
+}
+
+
+var testPartition = _.partition(usersPartition,{'age':40,'active':true});
+
+console.log(testPartition);
+
+console.log(_.map(testPartition,mapper));
+
+console.log(_.reduce([1,2], function(sum,n){
+
+	return sum + n;
+}));
+
+var testReduce = _.reduce({ 'a': 1, 'b': 2 }, function(result, n, key) {
+  result[key] = n * 3;
+  return result;
+}, {});
+
+console.log(testReduce);
+
+console.log(_.sortBy([1,2,3], function(n) {
+
+	return Math.sin(n);
+}));
+var usersSortAll = [
+  { 'user': 'barney', 'age': 36 },
+  { 'user': 'fred',   'age': 40 },
+  { 'user': 'barney', 'age': 26 },
+  { 'user': 'fred',   'age': 30 }
+];
+
+console.log(_.map(usersSortAll,_.values));
+var resultSortAll = _.map(_.sortByAll(usersSortAll, ['user', 'age']), _.values);
+
+console.log(resultSortAll);
+
+console.log('time : ');
+_.defer(function(stamp) {
+  console.log(_.now() - stamp);
+}, _.now());
+
+console.log(_.now());
+
+var saves = ['profile', 'settings'];
+
+var done = _.after(saves.length, function() {
+  console.log('done saving!');
+});
+
+_.forEach(saves, function(type) {
+
+//	asyncSave({'type' : type, 'complete' : done});
+
+});
+
+var testAry = _.map(['1','3','5'], _.ary(parseInt, 1));
+
+console.log(testAry);
+
+var testMap = _.map(['1','2','3'], function(n) {
+
+	return parseInt(n);
+});
+console.log(testMap);
+
+var usersClone = [
+  { 'user': 'barney' },
+  { 'user': 'fred' }
+];
+var shallow = _.clone(usersClone);
+
+var deep = _.clone(usersClone, true);
+
+
+var car = {type:"Fiat", model:500, color:"white"};
+console.log(_.isBoolean(2<3));
+
+var date = new Date();
+console.log(date);
+
+
+console.log(_.isElement(document.body));
+console.log(document.body);
+
+console.log(_.isEmpty(null));
+console.log(_.isEmpty(true));
+console.log(_.isEmpty('1'));
+
+console.log(_.isEmpty({ 'a': null }));
+
+console.log(_.isError(new Error()));
+//var Error = 'a';
+console.log(_.isError(Error));
+
+console.log(_.isFinite({'a': 10}));
+
+console.log(_.isFunction(_.pluck({'a': 'b'},'a')));
+
+console.log(_.isNaN(NaN));
+console.log(_.isNaN(undefined));
+
+console.log(_.isUndefined(void 9));
+
+var testArray = (function() {
+
+	return _.toArray(arguments).slice(1,3);
+}(1,2,3));
+console.log(testArray);
+
+function Shape() {
+  this.x = 0;
+  this.y = 0;
+}
+
+function Circle() {
+  Shape.call(this);
+}
+
+Circle.prototype = _.create(Shape.prototype, {
+  'constructor': Circle
+});
+
+var circle = new Circle;
+circle instanceof Circle;
+// → true
+
+circle instanceof Shape;
+// → true
+
+console.log(circle);
+
+function FooTestForIn() {
+	this.a = 1;
+	this.b = 2;
+
+}
+
+FooTestForIn.prototype.c = 3;
+console.log(_.forIn(new FooTestForIn, function(value,key) { 
+	console.log(key);
+}));
+
+var testHas = {'name': 'trinh', 'age': 18};
+console.log('check if key exists :');
+console.log(_.has(testHas,'age'));
+function FunctionTest() {
+	this.name = 'trinh';
+	this.age = '19';
+}
+
+var objectMerge = {
+  'fruits': ['apple'],
+  'vegetables': ['beet']
+};
+
+var otherMerge = {
+  'fruits': ['banana'],
+  'vegetables': ['carrot']
+};
+
+var testMerge = _.merge(objectMerge, otherMerge, function(a, b) {
+  if (_.isArray(a)) {
+    return a.concat(b);
+  }
+});
+
+console.log(testMerge);
+
+var testMerge1 = {'data': [{ 'user': 'barney' }, { 'user': 'fred' }]};
+
+var testMerge2 = {'data': [{ 'age': 36 }, { 'age': 40 },{'role': 'member'}]};
+
+console.log(_.merge(testMerge1, testMerge2));
+
+var usersMerge = {'data': [{ 'user': 'barney' }, { 'user': 'fred' }]};
+
+var agesMerge = {'data': [{ 'age': 36 }, { 'age': 40 }]};
+
+console.log(_.merge(usersMerge, agesMerge));
+
+var objectOmit = {'user': 'trinh', 'age': false};
+
+console.log(_.omit(objectOmit, 'age'));
+
+var objectResult = {'user': 'fred', 'age': _.constant(40)};
+
+console.log(_.result(objectResult,'trinh','busy'));
+
+
+_.transform([2, 4,1, 7,4], function(result, n) {
+	console.log(result);
+	console.log(n);
+  result.push(n *= n);
+  return n % 2 == 0;
+});
+
+
+console.log(_.camelCase('--foob'));
+console.log(_.escape('fred, , >,< barney, & pebbles'));
+
+var testExprees = '[lodash](https://lodash.com/)';
+
+console.log(_.escapeRegExp(testExprees));
+
+console.log(_.kebabCase('foobar'));
+
+console.log(_.parseInt('FF','16'));
+
+console.log(_.startCase('trinh tran'));
+
+console.log(_.endsWith('tranvan','n',7));
+
+console.log(_.words('fred, barney, & pebbles',/[^, ]+/g));

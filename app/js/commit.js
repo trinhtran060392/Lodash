@@ -14,3 +14,4 @@ wrapper.last();
 console.log(array);
 // → [1, 2, 3]
 
+console.log(_.isElement(document.body));
