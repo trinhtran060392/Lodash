@@ -442,3 +442,30 @@ console.log(_.startCase('trinh tran'));
 console.log(_.endsWith('tranvan','n',7));
 
 console.log(_.words('fred, barney, & pebbles',/[^, ]+/g));
+
+var userKey =[
+  { 'user': 'fred' },
+  { 'user': 'barney' }
+];
+
+var getName = _.property('user');
+
+console.log(getName);
+
+console.log(_.map(userKey,getName));
+
+console.log(_.pluck(_.sortBy(userKey,'user'),'user'));
+
+var object = { 'a': 3, 'b': 1, 'c': 2 };
+
+console.log(_.map(['a','c'],_.propertyOf(object)));
+
+console.log(_.sortBy(['a','b','c'], _.propertyOf(object)));
+
+console.log(_.range(0, -4,-1));
+
+var timeTest = _.times(3, function() {
+	return 10;
+});
+
+console.log(timeTest);
